@@ -1,0 +1,113 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node* next;
+    struct node* prev;
+
+}*head = NULL;
+
+void insertatbeg(int n)
+{
+    node* temp = new node;
+    temp -> data = n;
+    temp -> next = NULL;
+    temp -> prev = NULL;
+    
+    if(head == NULL)
+        head = temp;
+        
+    else
+    {
+        head -> prev = temp;
+        temp -> next = head;
+    }
+        head = temp;
+}
+
+void insertatend(int n)
+{
+    node* temp = new node;
+    temp -> data = n;
+    temp -> next = NULL;
+    temp -> prev = NULL;
+    
+    node* temp1 = head;
+    while(temp1 -> next != NULL)
+        temp1 = temp1 -> next;
+        
+    temp -> prev = temp1;
+    temp1 -> next = temp;
+}
+
+void insertatpos(int n , int pos)
+{
+    node* temp = new node;
+    node* temp1 = head,*temp2;
+    temp -> data = n;
+    temp -> next = NULL;
+    temp -> prev = NULL;
+    int i = 1;
+    
+    if(pos == 1)
+    {
+        temp -> next = head;
+        head -> prev = temp;
+        temp = head;
+    }
+    
+    while(temp1 -> next != NULL && i < pos)
+    {
+        temp2 = temp1;
+        temp1 = temp1 -> next;
+        i++;
+    }
+    
+    temp2 -> next = temp;
+    temp -> prev = temp2;
+    temp -> next = temp1;
+    temp -> prev = temp;
+    
+}
+
+void display(node* head)
+{
+    node* temp = head,*last;
+    
+    while(temp != NULL)
+    {
+        cout<<temp -> data<<" ";
+        last = temp;
+        temp = temp -> next;
+    }
+    cout<<endl;
+    while(last != NULL)
+    {
+        cout<<last -> data<<" ";
+        last = last -> prev;
+    }
+    cout<<endl;
+}
+
+
+int main()
+{
+   int n,i,key,x;
+   cin>>n;
+   
+   for(i = 1; i <= n; i++)
+   {
+        cin>>key;
+        insertatbeg(key);
+   }
+   
+   display(head);
+   cin>>key;
+   insertatend(key);
+   display(head);
+   cin>>key>>x;
+   insertatpos(key,x);
+   display(head);
+}
