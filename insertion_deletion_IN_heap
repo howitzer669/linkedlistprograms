@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> v;
+
+void minheapyfy()
+{
+    
+    int i,k,temp;
+    k = v.size();
+    for(i = k-1; i > 0; i--)
+    {
+        if(v[(i-1)/2] > v[i])
+        {
+            temp = v[(i-1)/2];
+            v[(i-1)/2] = v[i];
+            v[i] = temp;
+        }
+    }
+    
+}
+
+int deleteheap()
+{
+    int temp,k;
+    k = v.size();
+    temp = v[0];
+    v[0] = v[k-1];
+    minheapyfy();
+    v.pop_back();
+    return temp;
+}
+
+int main()
+{
+    int i,a,n;
+    cin>>n;
+    
+    while(n--)
+    {
+        cin>>a;
+        v.push_back(a);
+        minheapyfy();
+       
+    }
+    
+    for(i = 0; i < v.size(); i++)
+        cout<<v[i]<<" ";
+    cout<<endl;
+    while(v.size() > 0)
+    {
+        a = deleteheap();
+        cout<<a<<endl;;
+    }
+    
+    return 0;
+}
